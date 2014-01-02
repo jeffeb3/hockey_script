@@ -36,17 +36,19 @@ if __name__ == '__main__':
   if (tomorrow).weekday() == dow:
     logger.info('Today is a good day to email')
     email = hockey_email.HockeyEmail(tomorrow, location)
+    subject = email.GetSubject()
     email_to = config.get('HOCKEY_EMAIL', 'EMAIL_TO')
     if email.mEvent.mSunset.hour < 18:
       logger.info('not sending the email because it\'s going to be dark before 6:00. sunset: ' + str(email.mEvent.mSunset)) 
       email_to = config.get('HOCKEY_EMAIL', 'EMAIL_FROM')
+      subject = 'No Time for hockey tomorrow ' + subject 
     else:
       logger.info('Sending email with subject:' + email.GetSubject() + '\nmessage:\n' + email.GetBody())
 
     email_utils.sendemail(from_addr    = config.get('HOCKEY_EMAIL', 'EMAIL_FROM'), 
                           to_addr_list = [email_to],
                           cc_addr_list = [''],
-                          subject      = email.GetSubject(), 
+                          subject      = subject, 
                           message      = email.GetBody(), 
                           login        = config.get('HOCKEY_EMAIL', 'EMAIL_LOGIN'),
                           password     = config.get('HOCKEY_EMAIL', 'EMAIL_PASSWORD'))
