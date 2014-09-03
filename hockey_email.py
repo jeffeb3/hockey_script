@@ -25,10 +25,10 @@ class HockeyEmail():
 
   def GetSnideRemark(self):
     remarks = [
-      'If you don\'t come to hockey today, you\'ll regret it',
+      'If you don\'t come to hockey tomorrow, you\'ll regret it',
       'Hockey is the best exercise',
       'Forget the weather, just come and play hockey',
-      'Don\'t you want to be cool like the other kids? They all play hockey'
+      'Don\'t you want to be cool like the other kids? They all play hockey',
       'Please reply immediately, or no one will know you want to come, and they will say no. Then no one will come. Then people will stop caring. Then hockey will end.',
       'If you don\'t come to hockey, then no one will. You are the only person that matters at all.',
       'Obesity in America hit an all time record today.',
