@@ -22,7 +22,7 @@ class HockeyEmail():
     self.mLocation = location
     self.mEvent = event_utils.HockeyEvent(day, time, location)
     self.mSnideRemark = self.GetSnideRemark()
-    self.mSubject = 'Who\'s In? ' + self.mLocation.mName + ', ' + self.mDay.strftime('%A %B %e') + ' at ' + str(int(float(time))) + ':%02d' % (time % 1.0)
+    self.mSubject = 'Who\'s In? ' + self.mLocation.mName + ', ' + self.mDay.strftime('%A %B %e') + ' at ' + str(int(float(time))) + ':%02d' % ((time % 1.0) * 60)
 
   def GetSnideRemark(self):
     remarks = [

@@ -25,7 +25,7 @@ class HockeyEvent():
   def SetWeather(self):
     result = forecast.get_forecast(self.mLocation.mLat,self.mLocation.mLon,True)
     result = json.loads(result)
-    line = '\nWeather for ' + self.mDay.strftime('%A %B %e') + ' at (' + str(self.mLocation.mLat) + ',' + str(self.mLocation.mLon) + '):\n'
+    line = '\nWeather for ' + self.mDay.strftime('%A %B %e') + ' at ' + self.mLocation.mName + ' (' + str(self.mLocation.mLat) + ',' + str(self.mLocation.mLon) + '):\n'
     for data in result['daily']:
       if data['date'] == str(self.mDay):
         logger.debug('Daily' + str(data))
@@ -81,7 +81,6 @@ class HockeyEvent():
     a = Astral()
     city = a[city_name]
     sun = city.sun(date=self.mDay, local=True)
-    #print 'sun:',sun
     self.mSunset = sun['sunset']
     self.mDusk = sun['dusk']
 
