@@ -16,12 +16,13 @@ def IsDST(date):
     return True
 
 class HockeyEmail():
-  def __init__(self, day, location):
+  def __init__(self, day, time, location):
     self.mDay = day
+    self.mTime = time
     self.mLocation = location
-    self.mEvent = event_utils.HockeyEvent(day, location)
+    self.mEvent = event_utils.HockeyEvent(day, time, location)
     self.mSnideRemark = self.GetSnideRemark()
-    self.mSubject = 'Who\'s In? ' + self.mLocation.mName + ', ' + self.mDay.strftime('%A %B %e')
+    self.mSubject = 'Who\'s In? ' + self.mLocation.mName + ', ' + self.mDay.strftime('%A %B %e') + ' at ' + str(int(float(time))) + ':%02d' % (time % 1.0)
 
   def GetSnideRemark(self):
     remarks = [

@@ -27,19 +27,20 @@ if __name__ == '__main__':
   config = ConfigParser.RawConfigParser()
   config.read('/home/pi/.hockey/config')
   dow = int(config.get('HOCKEY_EMAIL','DAY_OF_WEEK'))
+  time = int(float(config.get('HOCKEY_EMAIL','TIME')))
 
   location = event_utils.HockeyLocation(config.get('HOCKEY_EMAIL', 'LOCATION_NAME'),
                                         config.get('HOCKEY_EMAIL', 'LAT_LON').split()[0],
                                         config.get('HOCKEY_EMAIL', 'LAT_LON').split()[1])
 
-  tomorrow = datetime.date.today() + datetime.timedelta(1)
+  tomorrow = datetime.date.today() + datetime.timedelta(2)
   if (tomorrow).weekday() == dow:
     logger.info('Today is a good day to email')
-    email = hockey_email.HockeyEmail(tomorrow, location)
+    email = hockey_email.HockeyEmail(tomorrow, time, location)
     subject = email.GetSubject()
     email_to = config.get('HOCKEY_EMAIL', 'EMAIL_TO')
-    if email.mEvent.mSunset.hour < 18:
-      logger.info('not sending the email because it\'s going to be dark before 6:00. sunset: ' + str(email.mEvent.mSunset)) 
+    if time + 1 > email.mEvent.mSunset.hour:
+      logger.info('not sending the email because it\'s going to be dark before ' + str(time) + ':00. sunset: ' + str(email.mEvent.mSunset)) 
       email_to = config.get('HOCKEY_EMAIL', 'EMAIL_FROM')
       subject = 'No Time for hockey tomorrow ' + subject 
     else:

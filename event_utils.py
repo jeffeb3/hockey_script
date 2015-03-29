@@ -13,8 +13,10 @@ class HockeyLocation():
     self.mLon = float(lon)
 
 class HockeyEvent():
-  def __init__(self, day, location):
+  def __init__(self, day, time, location):
     self.mDay = day
+    self.mTime = time
+    self.mHour = int(float(time))
     self.mLocation = location
 
     self.mWeatherText = self.SetWeather()
@@ -51,7 +53,7 @@ class HockeyEvent():
       if data['date'] == str(self.mDay):
         logger.debug('Hourly:' + str(data))
         time = datetime.datetime.strptime(data['time'], '%H:%M:%S')
-        if abs(time.hour - 17) > 3:
+        if abs(time.hour - self.mHour) > 3:
           continue
         line += '\n%s' %(time.strftime('%l:%M %p')) 
         if data.has_key('temp'):
